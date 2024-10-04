@@ -1,0 +1,18 @@
+//propriedades para importar fontes
+@font-face {
+    font-family: 'Biennale Regular';//requer o nome da fonte
+    src: url('BiennaleRegular.otf') //requer o caminho para esta fonte
+    format('opentype');//diz que tipo de formato é
+}
+
+@font-face {
+    font-family: 'Biennale Light';
+    src: url('BiennaleLight.otf') 
+    format('opentype');
+}
+
+@font-face {
+    font-family: 'Biennale Bold';
+    src: url('BiennaleBold.otf') 
+    format('opentype');
+}
