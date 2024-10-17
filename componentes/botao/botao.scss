@@ -1,0 +1,53 @@
+//adicionar cores, bordas , em todo estilo do botao
+
+//atraves do 'sass' vamos usar o 'mixin' para criar um metodo para reutilizar sempre que preciso
+//lembrando que para definir o 'mixin' use o'@' em conjunto, dessa forma'@mixin' 
+@mixin botaoPrimario {
+    background-color: $corPrimaria;//cor de fundo usando a variavel '$corPrimaria'
+    color: $branco;//cor da fonte 'cor da letra' usando a variavel '$Branco'
+}
+
+@mixin botaoInvertido {
+    background-color: $branco;//cor do fundo, usando a cor da variavel '$Branco'
+    color: $corPrimaria;//cor da fonte 'cor da letra' usando a variavel '$corPrimaria'
+    border: 1px  solid $corPrimaria;//adicionando uma borda
+}
+
+//estilizando a classe'.btn' 
+.btn {
+    width: 100%; //pegando toda largura da div inserido
+    border: none; //tirando a borda
+    border-radius: 6px;//inserido uma borda arredondada
+    cursor:pointer;//isso faz com que sempre que passar com a seta em 
+    //cima do botão a seta vira um 'dedinho'
+
+    //usa-se o '&' para incluir mais classes a serem estilizadas
+
+    //estilizando a classe 'primaria' do botao
+    &.primaria {
+        @include botaoPrimario;//para usar o mixin criado, use o '@include' e passe o nome do mixin
+
+        //estilizando com 'houver' dentro da classe '.primaria' que quando
+        //estiver com o mouse encima do botao ele fique com o mesmo estilo da classe '.invertido'
+        &.houver{
+            @include botaoInvertido;//usando o mixin criado 
+        }
+    }
+
+    //estilizando a cor do botao quando ele esta desabilitado e passa a ser habilitado
+    //na clase 'invertido'
+    &.invertido {
+        @include botaoInvertido;
+        
+        //estilizando com 'houver' dentro da classe '.invertido' que quando
+        //estiver com o mouse encima do botao ele fique com o mesmo estilo da classe primaria
+        &:hover {
+            @include botaoPrimario;//usando o mixin criado
+        }
+    }
+    //editando a cor quando o botao estiver desabilitado
+    //na classe 'disabled'
+    &:disabled {
+        opacity: 0.5; //deixa com opacidade, uma ofuscada na cor
+    }
+}

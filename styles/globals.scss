@@ -1,6 +1,20 @@
+@import 'variaveis.scss';
+
 * {
-  font-family: 'Biennale Regular';
+  font-family: $fontRegular;
   font-size: 14px;
 }
 
+//passando um estilo padrao para a classe 'avatar'
+.avatar {
+  border-radius: 50%;//dizendo que a borda seja sempre arredondada
+  object-fit: cover;//tentar encaixar a imagem dentro do elemento sem deixar estourado/maior 
+}
+
+//passando a classe 'oculto' 
+.oculto {
+  display: none;//isso permite que ele nao apareca na tela
+}
+
 @import '../public/fonts/fonts.scss';
+@import '../componentes/botao/botao.scss';
