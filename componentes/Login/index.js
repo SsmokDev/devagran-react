@@ -46,7 +46,7 @@ export default function Login() {
             login: email,
             senha
            });
-           
+
         } catch (error) {
             //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto
             alert("Erro ao  realizar o login do usuario." + error?.response?.data?.erro);//se esse erro tiver uma dessas propriedades(response, data e erro)ai a mensagem sera contatenada
@@ -73,7 +73,7 @@ export default function Login() {
             </div>
         
             <div className="conteudoPaginaPublica">
-                <form>
+                <form onSubmit={aoSubmeter}>
                     <InputPublico // criando o campo da senha, passando suas propriedades
                         imagem={imagemEnvelope} //imagem usada como icone
                         texto="E-mail"// informando para o usuario oque sera passado dentro do campo
