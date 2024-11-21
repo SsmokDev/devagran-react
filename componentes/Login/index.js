@@ -7,6 +7,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { validarEmail, validarSenha} from "../../utils/validadores"//importando os validadores
+import UsuarioServices from "../../services/UsuarioServices";
+
+//vamos criar a instancia da classe do usuarioServices aqui fora para ele nao ser chamado sempre que for renderizado o componente
+const usuarioServices = new UsuarioServices();
 
 //criando a funçãoa ser exportada
 export default function Login() {
@@ -14,9 +18,10 @@ export default function Login() {
     //vamos criando uma o local onde sera salvo a setagem do email e a senha
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const [estaSubmetendo, setEstaSubmetendo] = useState(false);
 
     //vamos criar uma função para validar o formulario do login
-    const validarFormulario = () => {
+    const validarFormularioLogin = () => {
         return(
             validarEmail(email)//passando a função de validação do email
             && validarSenha(senha) //passando a função de validação da senha
@@ -24,8 +29,30 @@ export default function Login() {
     }
 
     //vamos criar um metodo usado sempre que o usuario clicar no botao de Login
-    const aoSubmeter = (e) => {
+    const aoSubmeter = async (e) => {
+        e.preventDefault();//esse metodo serve para evitar que a pagina seja recarregada
+        //passando se o formulario de login nao estiver valido ele nao prossegui-rá adiante
+        if(!validarFormularioLogin()){
+            return;
+        }
 
+        //vamos setar a função estasubmetendo/ para evitar que o usuario de varios clicks no botao gerendo varias requisições
+        setEstaSubmetendo(true);
+
+        //vamos usar o try catch para tratar algums possiveis erros
+        try {
+            //vamos preparar o payload do login/ passando suas credenciais
+           await usuarioServices.login({
+            login: email,
+            senha
+           });
+           
+        } catch (error) {
+            //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto
+            alert("Erro ao  realizar o login do usuario." + error?.response?.data?.erro);//se esse erro tiver uma dessas propriedades(response, data e erro)ai a mensagem sera contatenada
+        }
+
+        setEstaSubmetendo(false);
     }
 
     return (
@@ -72,7 +99,7 @@ export default function Login() {
                     <Botao //estilizando o elemento 'botao'
                         texto="Login"//informando para o usuario ao que se refere o atributo
                         tipo="submit"//
-                        desabilitado={!validarFormulario()}//passando que o botão ficara desabilitado caso o formulario nao esteja preenchido e se o formulario for preenchido incorretamente
+                        desabilitado={!validarFormularioLogin() || estaSubmetendo}//passando que o botão ficara desabilitado caso o formulario nao esteja preenchido e se o formulario for preenchido incorretamente
                     />
                 </form>
                 
