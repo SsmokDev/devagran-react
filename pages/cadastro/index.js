@@ -66,7 +66,7 @@ export default function Cadastro (){
             alert("Sucesso!");//esse alerta é so uma mensagem para sabermos se deu tudo certo.
         } catch (error) {
             //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto
-            alert('Erro ao cadastrar usuario.' + error?.response?.data?.erro);//se esse erro tiver uma dessas propriedades(response, data e erro)ai a mensagem sera contatenada
+            alert("Erro ao cadastrar usuario." + error?.response?.data?.erro);//se esse erro tiver uma dessas propriedades(response, data e erro)ai a mensagem sera contatenada
         }
 
         setEstaSubmetendo(false);
