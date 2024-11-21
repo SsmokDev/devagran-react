@@ -5,6 +5,13 @@
   font-size: 14px;
 }
 
+//estilizando a tela de login/cadastro na parte mobile
+//usando o (#__next: que é um route= raiz de todos os elementos
+html, body, #__next {
+  height: 100%; //altura em 100%
+  margin: 0; //retiramos a margem
+}
+
 //passando um estilo padrao para a classe 'avatar'
 .avatar {
   border-radius: 50%;//dizendo que a borda seja sempre arredondada
@@ -16,5 +23,61 @@
   display: none;//isso permite que ele nao apareca na tela
 }
 
+//vamos estilizar os placeholders, usando o input para seta os valores do placeholder
+input {
+  &::placeholder{
+    /* o placeholder serve para: chrome, opera, safari e firefox*/
+    color: $cinza2;//passando uma cor usando a variavel criada
+    opacity: 1;//vamos passar que nao qeuremos opacidade
+  }
+
+  &:-ms-input-placeholder {
+    /*serve para internet explore 10-11*/
+    color: $cinza2;//passando uma cor usando a variavel criada
+  }
+
+  &::-ms-input-placeholder{
+    /*serev para edge*/
+    color: $cinza2;//passando uma cor usando a criada
+  }
+};
+
+//vamos criar uma versao da logo somente para exibição desktop
+.desktop{
+  //usando o @media screen e passando (min-widht) largura minima da variavel criada ($desktopBreakpoint : 992px)
+  @media screen and (min-width: $desktopBreakpoint){
+    display: block;//passando um display padrao, exibir toda largura disponivel
+  }
+  //agora junto ao @media screen vamos usar o metodo css (calc) que calcula o tamanho da tela 
+  @media screen and (max-width: calc($desktopBreakpoint - 1px)){
+    display: none;//passando um display que vai ocultar, sempre que o tamanho da tela for menor que variavel ($desktopBreakpoint)
+  }
+}
+
+//vamos criar uma versao da logo somente para exibição mobile
+.mobile{
+  //usando o @media screen e passando (min-widht) largura minima da variavel criada ($desktopBreakpoint : 992px)
+  @media screen and (min-width: $desktopBreakpoint){
+    display: none;//passando um display que vai ocultar, sempre que o tamanho da tela for menor que variavel ($desktopBreakpoint)
+  }
+  //agora junto ao @media screen vamos usar o metodo css (calc) que calcula o tamanho da tela 
+  @media screen and (max-width: calc($desktopBreakpoint - 1px)){
+    display: block;//passando um display padrao, exibir toda largura disponivel
+  }
+}
+
+//vamos criar um estilo para as mensagens de validação usadas no login e cadastro
+.mensagemValidacao {
+  display: block;//passando um display padrao, exibir toda a largura disponivel
+  color: $vermelho;//passando uma cor de vermelho, usando a variavel criada
+  font-size: 90%;//passando o tamanho da fonte(tamanho das letras)
+  margin-top: -15px;//passando um espaçamento entre o elemento e a div de cima
+  margin-bottom: 15px;//passando um espaçamento entre o elemento e a div debaixo
+}
+
+
 @import '../public/fonts/fonts.scss';
 @import '../componentes/botao/botao.scss';
+@import '../styles/paginaPublica.scss';
+@import '../componentes/inputPublico/inputpublico.scss';
+@import '../pages/cadastro/cadastro.scss';

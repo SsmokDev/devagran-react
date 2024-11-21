@@ -1,0 +1,50 @@
+//criando um estilo exclusivo para a pagina de cadastro
+
+//passando o nome da classe a ser estilizada
+.paginaCadastro {
+    //passando a classe dentro do elemnto pai a ser estilizada
+    .uploadImagemContainer {
+        text-align: center;//usado para centralizar o element passado dentro da div no caso a imagem do avatar
+        position: relative;//usado para deixar a posiçao flexivel
+        margin-bottom: 48px;//passando uma margem/espaço entre a imagem e o texto abaixo dela
+        cursor: pointer;//usado pra quando passar com o cursor encima da imagem a setinha vira um dedinho
+
+
+        //passando a classe dentro do elemento pai a ser estilizada
+        .avatarPreview {
+            height: 140px;//passando uma altura
+            width: 140px;//passando uma largura
+        }
+
+        //vamos usar um pseu dos seletores do CSS o after (serve para aplicar um estilo depois das divs dentro do elemento pai)
+        //nesse caso vamos usar para colocar a imagem da camera logo apos a imagem do avatar, no canto inferior
+        &::after {
+            content: url('/imagens/cameraAtiva.svg');//passando o conteudo que sera usado, que no caso sera a imagem da camera
+            width: 48px;//passando a largura
+            height: 48px;//passando a altura
+            position: absolute;//usado para deixar a posição absoluta ou seja o seu tamanho sera sempre baseado ao tamanho do elemento pai
+            right: 0%;//usado para deixar o elemento a direita
+            left: 90px;//passando um espaçamento da esquerda para direita
+            bottom: 0px;//passando uma posição baseado no espaçamento entre o elemento e a div
+            margin: auto;//usado para acertar o alinhamento do elemento(camera)
+
+        }
+    }
+
+    //vamos estilizar o rodape da pagina publica
+
+    //versao desktop
+    //passando o nome da classe a ser estilizada
+    @media screen and (min-width: $desktopBreakpoint) {
+        .rodapePaginaPublica {
+            display: flex;//usado parab deixar o elemento flexivel
+            justify-content: center;//passando um alinhamento horizontal
+
+            //estilizando os elementos dentro do paragrafo
+            p {
+                margin-right: 6px;//passando um espaçamento entre os textos
+            }
+        }
+    }
+    
+}

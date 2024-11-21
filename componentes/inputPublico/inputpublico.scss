@@ -1,0 +1,21 @@
+//vamos criar um estilo padrao para o input
+
+//passando a class a ser estilizada
+.inputPublicoContainer {
+    //passando a className dentro do elemento 'PAI' que sera estilizada
+    .inputPublico {
+        display: flex;//permite que o elemento seja flexivel podendo deixa-lo na horizontal, expansivel sempre que o tamanho da tela seja alterado
+        padding-bottom: 10px; //permite que fique um espaço entre o elemento 
+        border-bottom: 1px solid $corPrimaria;//passando uma borda na div, e uma cor usando a variavel
+        margin-bottom: 25px; //passando um espaço entre um input e outro
+
+
+        input {
+            border: none; //vamos retirar a borda do input
+            outline: none;//vamos retirar a bordar do input sempre que clicado
+            color: $corPrimaria; //vamos colocar uma corr nas letras usando a variavel
+            flex: 1; //faz com que ocupe o maior espaço disponivel dentro do elemento 'PAI' respeitando os elementos 'IRMAOS' : icone etc.
+            margin-left: 12px ; //faz com que haja um espaço entre o icone e a string
+        }
+    }
+}

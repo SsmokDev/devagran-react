@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 //exportando a função criada
-export function UploadImagem({
+export default function UploadImagem({
     className='',
     setImagem,
     imagemPreview,
@@ -22,13 +22,13 @@ export function UploadImagem({
 
         
         aoSetarAReferencia(referenciaInput?.current);
-    }, [referenciaInput?.current]);//este é um segundo parametro, um array
+    },[referenciaInput?.current]);//este é um segundo parametro, um array
     //resumindo sempre que que for alterado a referencia atual do input, ele ira chamar esse callback passado dentro do array
 
     //criando uma função para selecionar o arquivo da imagem desejada
     const abrirSeletorDeArquivos = () => {
         referenciaInput?.current?.click();//faz com que sempre que clicado em qualquer lugar da 'div' 
-                                          //seja forcado a abrir o seletor de arquivos
+                                          //seja forçado a abrir o seletor de arquivos
     }
 
     //criando uma função para trocar a imagem

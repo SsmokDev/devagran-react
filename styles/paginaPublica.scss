@@ -1,0 +1,106 @@
+//criando um estilo padrao para a pagina publica
+
+//para começar vamos chamar o nome da classe a ser estilizada.
+//e vamos encapsular todos os estilos.
+//na versão mobile sempre por primeiro
+.paginaPublica {
+    display: flex;//usado para deixar 'flexivel' de manipular os elementos, podendo deixar na horizontal, expandir, sempre que o tamanho da tela for alterado
+    flex-direction: column;//usado para deixar/posicionar os elementos na vertical
+    height: 100%; //passando uma altura de 100%, para pegar a tela inteira
+    align-items: center; //passando os elementos alinhados no centro da tela
+    justify-content: center;//passando os elementos alinhados verticalmente
+    padding: 0px 32px; //passando um espaço entre a borda da tela e o conteudo dentro da div
+
+    //vamos estilizar todos os elemento que estiverem na div logoContainer
+    .logoContainer {
+        position: relative;//serve para que a imagem passada respeite o elemnto/div pai nao o sobrepondo
+        height: 13%; //passando uma altura para a imagem
+        width: 100%; //passando uma largura para a imagem
+        margin-bottom: 50px; //pasando uma margem/espaço entre a imagem e o input
+    }
+
+    //vamos estilizar a className
+    .conteudoPaginaPublica {
+        width: 100%; //passando uma largura para que todo o conteudo passado dentro da div ocupe 100% da tela
+    }
+
+    //agora vamos estilizar o botao
+    .btn {
+        margin-top: 15px; //passando uma margem/espaço entre o botao e o input
+        padding: 10px; //passando uma largura ao 'botão' 
+    }
+
+    //vamos estilizar toda a parte do rodapePaginaPublica
+    .rodapePaginaPublica {
+        text-align: center; //vamos alinhar o texto no centro
+        margin-top: 24px; //passando um espaço entre o rodape e o botão
+
+        //vamos estilizar todo conteudo dentro do '<p>'
+        p {
+            color: $cinza3; //passando uma cor usando a variavel criada
+            margin: 0px 0px 2px; //vamos passar um espaço no elemento dentro do <p> e o botao
+        }
+
+        //vamos estilizar a ancora 'a' onde é gerado o link
+        a {
+            color: $corPrimaria; //passando uma cor usando a variavel criada
+            font-family: $fontBold;//passando que estilo de fonte da letra sera usada, utilizando a variavel criada
+        }
+    }
+
+    //agora vamos mexer na versão desktop agora:
+
+    //usando o midia screen(que é a midia em que estamos trabalhando)
+    //e entre() vamos passar o target(limite) que sera feito o corte
+    //(min-width) sera aplicado somente se o dispositivo/navegador em qe o usuario estiver acessando
+    // tiver uma largura minima de 992px
+    @media screen and (min-width: $desktopBreakpoint){
+        flex-direction: row;//passando os elementos na horizontal
+        padding: 0 140px;//passando um espaço entre a borda da tela e o conteudo dentro da div
+        font-size: 18px;//passando um tamanho padrão para a fonte
+
+        //vamos mexer no logo
+        .logoContainer {
+            height: 30%;//passando o tamanho da imagem
+            flex: 2;//passando que o logoContainer tenha o dobro do tamanho do formulario
+            margin-bottom: -30px;//passando uma margem para descer um pouco o elemento centralizando-o
+
+            //vamos mexer no logo
+            .logo {
+                width: 100%;//passando a altura max
+                height: 300px;//passando a largura max
+            }
+        }
+
+        //vamos estilizar o conteudo da pagina publica
+        .conteudoPaginaPublica {
+            flex: 1;//passando o tamanho do conetudodaPaginaPublica
+            width: 30%;//passando a altura
+            border: 1px solid $corPrimaria;//passando uma borda em volta do elemento de 1px e sua posição solida, e uma cor usando a variavel criada
+            border-radius: 26px;//usa-se para deixar a borda arredondada
+            padding: 50px;//usa-se para dar um espaço entre os elementos
+        }
+
+        //vamos estilizar o botao
+        .btn {
+            padding: 18px;//passando uma largura para o botao
+            font-size: 18px;//passando um tamanho para a fonte dos elementos do botão
+        }
+
+        //vamos estilizar o conteudo do rodape
+        .rodapePaginaPublica {
+            p, a {
+                font-size: 18px;//passando um tamanho para a fonte dos elementos do rodape
+            }
+        }
+
+        //vamos estilizar o inputPublico
+        /*passando o elemento PAI*/
+        .inputPublico {
+            /*passando o elemento FILHO*/
+            input {
+                font-size: 16px;//passando o tamanho da fonte dos elementos dentro do input
+            }
+        }
+    }
+}
