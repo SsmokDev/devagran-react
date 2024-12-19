@@ -6,13 +6,14 @@ import imagemLogo from "../../public/imagens/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { validarEmail, validarSenha} from "../../utils/validadores"//importando os validadores
-import UsuarioServices from "../../services/UsuarioServices";
+import { validarEmail, validarSenha} from "../../utils/validadores"//importando os validadores.
+import UsuarioServices from "../../services/UsuarioServices";//importando o serviço do usuario.
 
-//vamos criar a instancia da classe do usuarioServices aqui fora para ele nao ser chamado sempre que for renderizado o componente
+//vamos criar uma função(const) chamada usuarioServiçes e passamos dentro dela o new UsuarioServices(). 
+//ou seja criamos a  instancia da classe do usuarioServices aqui fora para ele não ser chamado sempre que for renderizado o componente
 const usuarioServices = new UsuarioServices();
 
-//criando a funçãoa ser exportada
+//criando a função a ser exportada:
 export default function Login() {
 
     //vamos criando uma o local onde sera salvo a setagem do email e a senha
