@@ -5,7 +5,7 @@ import InputPublico from "../../componentes/inputPublico";//importanto o compone
 import UploadImagem from "../../componentes/uploadImagem";//importanto o componente do upload do preview da imagem do usuario
 import { useState } from "react";
 import { validarNome, validarEmail, validarSenha, validarConfirmacaoDeSenha } from "../../utils/validadores";//importando os validadores a serem usados 
-import UsuarioServices from "../../services/UsuarioServices";
+import UsuarioServices from "../../services/UsuarioServices";//importando o serviço do usuario.
 
 import imagemLogo from "../../public/imagens/logo.svg";//importanto o icone do logo
 import imagemUsuarioAtivo from "../../public/imagens/usuarioAtivo.svg";//importanto o icone do boneco
@@ -27,8 +27,9 @@ export default function Cadastro (){
     const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
     const [estaSubmetendo, setEstaSubmetendo] = useState(false);//criando um state extra que sera usado para controlar a submissão do formulario para o backend
 
-    //criando uma função para validar o formulario do cadastro
+    //criando uma função(const) chamada (validarFormularioCadastro) para validar o formulario do cadastro:
     const validarFormularioCadastro = () => {
+        //e essa função espera receber esses dados para poder validar o formulario:
         return(
             validarNome(nome)
             && validarEmail(email)
@@ -37,38 +38,53 @@ export default function Cadastro (){
         )
     }
 
-    //vamos criar um metodo que sera usado toda vez que o usuario clicar no submit do botao
+    //vamos criar um metodo que sera usado toda vez que o usuario clicar no submit do botao:
+    //criamos uma função(const) chamada (aoSubmeter) dizemos que ela é async() e essa funçao sera um evento(e).
     const aoSubmeter = async (e) => {
-        e.preventDefault();//esse metodo serve para evitar que a pagina seja recarregada
-        //passando se o formulario de cadastro nao estiver valido ele nao prossegui-rá adiante
+        e.preventDefault();//como essa função é um evento como padrão sempre que um evento é acionado a pagina ela é recarregada 
+                          //porém quando passamos (e.prevent) esse metodo serve para evitar que a pagina seja recarregada.
+        //por segurança vamos fazer uma checagem:
+        //se(if) o formulario de cadastro não estiver válido(!validarFormularioCadastro) ele nao prossegui-rá adiante.
         if(!validarFormularioCadastro()){
             return;
         }
 
-        //vamos setar a função estasubmetendo/ para evitar que o usuario de varios clicks no botao gerendo varias requisições
+        //agora se o formulario estiver válidado:
+
+        //vamos setar a função (estasubmetendo) para controlar o click do usuario isso evita que o usuario de varios clicks no botao gerendo varias requisições:
         setEstaSubmetendo(true);
 
-        //vamos usar o try catch para tratar algums possiveis erros
+        //vamos usar o try catch para tratar algums possiveis erros:
         try {
-            //vamos preparar o payload para a requisição
-           const corpoReqCadastro = new FormData();//vamos usar o (FormData) e nao um json direto pois estamos enviando um arquivo/imagem, por isso se usa o FormData pois ele aceita arquivo backEnd/ se fosse um json teriamos que converter o arquivo
-           corpoReqCadastro.append("nome", nome);//agora dentro do corpo da requisição, vamos passar os atributos que ele espera receber.
-           corpoReqCadastro.append("email", email);//agora dentro do corpo da requisição, vamos passar os atributos que ele espera receber.
-           corpoReqCadastro.append("senha", senha);//agora dentro do corpo da requisição, vamos passar os atributos que ele espera receber.
+            //vamos preparar o payload para a requisição:
+            //vamos criar uma função(const) chamada (corpoReqCadastro) passando o new FormData(Um objeto usado para compor e enviar dados no formato multipart/form-data, como aqrivos, imagens etc).
+            //ou seja vamos usar o (FormData) e não um json direto pois estamos enviando um arquivo/imagem, por isso se usa o FormData pois ele aceita arquivo backEnd/ se fosse um json teriamos que converter o arquivo.
+           const corpoReqCadastro = new FormData();
+           //dentro do corpo da requisição(corpoReqCadastro) vamos adicionar(append) a chave que será usada no corpo da requisição para identificar o dado("nome") e o valor correspondente à chave(nome).
+           //ou seja são os atributos que ele espera receber:
+           corpoReqCadastro.append("nome", nome);
+           corpoReqCadastro.append("email", email);
+           corpoReqCadastro.append("senha", senha);
 
-           //vamos colocar uma condição
+           //vamos colocar uma condição:
+           //se(if) tiver uma imagem(imagem?) e dentro dessa imagem tiver um arquivo:
            if (imagem?.arquivo){
-                corpoReqCadastro.append("file", imagem.arquivo);//a condição é se de dentro do "FILE" tiver um arquivo do tipo imagem , tudo ok.
+                //vamos adicionar(append) no corpo da requisição(corpoReqCadastro) a condição "FILE" e o arquivo dentro dela(imagem.arquivo).
+                corpoReqCadastro.append("file", imagem.arquivo);
             }
 
-            //vamos usar o await que significa aguardar, entao ele esta dizendo, aguarda a requisiçao ir ate o backend e voce tem o resultado
-            await usuarioServices.cadastro(corpoReqCadastro);//
-            alert("Sucesso!");//esse alerta é so uma mensagem para sabermos se deu tudo certo.
+            //vamos aguardar(await) os dados do cadastro(usuarioServices.cadastro(corpoReqCadastro) irem até o backend para termos o resultado.
+            await usuarioServices.cadastro(corpoReqCadastro);
+            //se deu tudo certo esse alerta enviará uma mensagem para sabermos se deu tudo certo.
+            alert("Sucesso!");
         } catch (error) {
-            //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto
-            alert("Erro ao cadastrar usuario." + error?.response?.data?.erro);//se esse erro tiver uma dessas propriedades(response, data e erro)ai a mensagem sera contatenada
+            //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto:
+            //e tambem vamos passar e conjunto qual é o tipo desse erro, se encontrarmos esse erro(error?) e se esse erro tiver um
+            //response(response?) e esse response tiver uma data(data?) e se essa data tiver um erro(erro) ai a mensagem sera contatenada.
+            alert("Erro ao cadastrar usuario." + error?.response?.data?.erro);
         }
 
+        //vamos setar a função (estasubmetendo) como (false) quando o usuário ja estiver terminado de preenher todo o formulário corretamente.
         setEstaSubmetendo(false);
     }
     
@@ -144,7 +160,7 @@ export default function Cadastro (){
 
                     <Botao //estilizando o elemento 'botao'
                         texto="Cadastrar"//informando para o usuario ao que se refere o atributo
-                        tipo="submit"//
+                        tipo="submit"//ou seja de preenchimento.
                         desabilitado={!validarFormularioCadastro() || estaSubmetendo}//o botao ficara desabilitado se caso o campo do formulario não for preenchido ,se o campo do formulario for preenchido de forma incorreta e quando (estaSubmetendo) for true
                     />
                 </form>
