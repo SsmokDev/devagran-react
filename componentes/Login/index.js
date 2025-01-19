@@ -14,7 +14,7 @@ import UsuarioServices from "../../services/UsuarioServices";//importando o serv
 const usuarioServices = new UsuarioServices();
 
 //criando a função a ser exportada:
-export default function Login() {
+export default function Login({aposAutenticacao}) {
 
     //vamos criando uma o local onde sera salvo a setagem do email e a senha
     const [email, setEmail] = useState("");
@@ -47,6 +47,12 @@ export default function Login() {
             login: email,
             senha
            });
+           
+           //vamos fazer uma verificação:
+           //se(if) esta setado o (aposAutenticação): vamos chamar o aposAutenticacao. ou seja depois que fizer o login e a senha, sera verificado se foi passado pelo(aposAutenticacao).
+           if(aposAutenticacao){
+            aposAutenticacao();
+           }
 
         } catch (error) {
             //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto
