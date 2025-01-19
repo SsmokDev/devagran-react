@@ -12,6 +12,7 @@ import imagemUsuarioAtivo from "../../public/imagens/usuarioAtivo.svg";//importa
 import imagemEnvelope from "../../public/imagens/envelope.svg";//importanto o icone do envelope usado no email
 import imagemChave from "../../public/imagens/key.svg";//importanto o icone da chave
 import imagemAvatar from "../../public/imagens/avatar.svg";//importanto o icone do usuario sem imagem
+import { useRouter } from "next/router";
 
 //vamos criar a instancia da classe do usuarioServices aqui fora para ele nao ser chamado sempre que for renderizado o componente
 const usuarioServices = new UsuarioServices();
@@ -26,6 +27,8 @@ export default function Cadastro (){
     const [senha, setSenha] = useState("");
     const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
     const [estaSubmetendo, setEstaSubmetendo] = useState(false);//criando um state extra que sera usado para controlar a submissão do formulario para o backend
+    const router = useRouter();//criamos uma função(const) chamada router que dentro dela sera passado um rook do next, chamado useRouter
+    //( utilizado para interagir com as rotas da aplicação, realizar navegação programática e acessar informações sobre a rota atual, como parâmetros de URL, caminhos e consulta de dados)
 
     //criando uma função(const) chamada (validarFormularioCadastro) para validar o formulario do cadastro:
     const validarFormularioCadastro = () => {
@@ -77,6 +80,9 @@ export default function Cadastro (){
             await usuarioServices.cadastro(corpoReqCadastro);
             //se deu tudo certo esse alerta enviará uma mensagem para sabermos se deu tudo certo.
             alert("Sucesso!");
+
+            router.push('/');
+
         } catch (error) {
             //passando uma mensagem de alerta se caso o cadastro do usuario nao estiver correto:
             //e tambem vamos passar e conjunto qual é o tipo desse erro, se encontrarmos esse erro(error?) e se esse erro tiver um
